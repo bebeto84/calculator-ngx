@@ -2,7 +2,12 @@
   <span>Trigonometric Calculator</span>
 
   <ng-container *ngIf="isPortrait$ | async; else isLandscape">
-    <button mat-raised-button (click)="historyClicked.emit()" color="primary">
+    <button
+      mat-raised-button
+      [disabled]="hasNotPreviousOperations"
+      (click)="historyClicked.emit()"
+      color="primary"
+    >
       History
     </button>
   </ng-container>
@@ -19,7 +24,7 @@
   <mat-menu #menu="matMenu">
     <button
       mat-menu-item
-      [disabled]="(lastOperationsCount$ | async) < 1"
+      [disabled]="hasNotPreviousOperations"
       (click)="historyClicked.emit()"
     >
       <mat-icon>dialpad</mat-icon>
