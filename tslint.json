@@ -46,6 +46,7 @@
     "semicolon": {
       "options": ["always"]
     },
+    "no-namespace": false,
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",
