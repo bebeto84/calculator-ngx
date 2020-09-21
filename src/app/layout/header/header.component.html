@@ -1,5 +1,14 @@
 <mat-toolbar>
   <span>Trigonometric Calculator</span>
+
+  <ng-container *ngIf="isPortrait$ | async; else isLandscape">
+    <button mat-raised-button (click)="historyClicked.emit()" color="primary">
+      History
+    </button>
+  </ng-container>
+</mat-toolbar>
+
+<ng-template #isLandscape>
   <button
     mat-icon-button
     [matMenuTriggerFor]="menu"
@@ -17,4 +26,4 @@
       <span>History</span>
     </button>
   </mat-menu>
-</mat-toolbar>
+</ng-template>

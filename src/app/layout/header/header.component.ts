@@ -10,6 +10,8 @@ import {
   HostBinding,
 } from '@angular/core';
 import { MainState } from 'src/app/sdk/model';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'calculator-header',
@@ -25,7 +27,14 @@ export class HeaderComponent implements OnInit {
   readonly lastOperationsCount$ = this.store.pipe(
     select(CalculatorSelector.selectCountOperations)
   );
-  constructor(private store: Store<MainState>) {}
+  readonly isPortrait$ = this.breakpointObserver
+    .observe(['(orientation: portrait)'])
+    .pipe(map(({ matches }) => !matches));
+
+  constructor(
+    private store: Store<MainState>,
+    private breakpointObserver: BreakpointObserver
+  ) {}
 
   ngOnInit(): void {}
 }

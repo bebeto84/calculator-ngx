@@ -46,12 +46,12 @@
       <button mat-raised-button (click)="onClickButton('-')" color="primary">
         -
       </button>
-      <button mat-raised-button (click)="onClickButton('/')" color="primary">
-        /
-      </button>
+      <button mat-raised-button (click)="onClickButton('/')">/</button>
     </div>
-    <button mat-raised-button (click)="drawer.toggle()">
-      {{ drawer.opened ? ">" : "<" }}
+    <button mat-raised-button color="accent" (click)="drawer.toggle()">
+      <mat-icon>
+        {{ drawer.opened ? "chevron_right" : "chevron_right" }}
+      </mat-icon>
     </button>
   </mat-drawer-content>
 </mat-drawer-container>

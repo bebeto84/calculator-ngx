@@ -1,7 +1,16 @@
 .calculator-header {
   display: flex;
+  transition: all 0.5s;
 
   .mat-menu-trigger {
     margin-left: auto;
+  }
+
+  @media (orientation: landscape) {
+    .mat-toolbar {
+      button {
+        margin-left: auto;
+      }
+    }
   }
 }
