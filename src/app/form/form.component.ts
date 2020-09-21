@@ -1,11 +1,14 @@
-import { evaluate } from 'mathjs';
+import { MainState } from './../sdk/model';
 import { CustomValidators } from './../utils/validators';
+
 import {
   Component,
   OnInit,
   ViewEncapsulation,
   ChangeDetectionStrategy,
   HostBinding,
+  OnDestroy,
+  ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -16,6 +19,12 @@ import {
   NgForm,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { select, Store } from '@ngrx/store';
+import { CalculatorAction } from '../sdk/calculator/action';
+import { CalculatorSelector } from '../sdk/calculator/selector';
+import { distinctUntilChanged, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -38,19 +47,38 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   @HostBinding('class') hostClass = 'calculator-form';
+  @ViewChild('calculatorInput') calculatorInput:
+    | MatFormFieldControl<any>
+    | undefined;
 
-  form = this.initForm();
+  readonly form = this.initForm();
+  readonly matcher = new MyErrorStateMatcher();
+  data$$: Subscription | undefined;
 
-  matcher = new MyErrorStateMatcher();
+  constructor(private fb: FormBuilder, private store: Store<MainState>) {}
 
-  constructor(private fb: FormBuilder) {}
+  ngOnInit(): void {
+    this.data$$ = this.store
+      .pipe(
+        select(CalculatorSelector.selectCurrent),
+        distinctUntilChanged(),
+        tap((value) => {
+          this.calculatorControl.setValue(value);
+        })
+      )
+      .subscribe();
+  }
 
-  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    this.data$$?.unsubscribe();
+  }
 
   onEnter(): void {
-    this.calculatorControl.setValue(evaluate(this.calculatorControl.value));
+    this.store.dispatch(
+      CalculatorAction.calculateOperation(this.calculatorControl.value)
+    );
   }
 
   get calculatorControl(): AbstractControl | undefined {

@@ -1,3 +1,4 @@
+import { calculatorReducer } from './sdk/calculator/reducer';
 import { FormModule } from './form/form.module';
 import { AppRoutingModule } from './app.routing';
 import { LayoutModule } from './layout/layout.module';
@@ -6,6 +7,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     LayoutModule,
     AppRoutingModule,
     FormModule,
+    StoreModule.forRoot({
+      calculator: calculatorReducer,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
