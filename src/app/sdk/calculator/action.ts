@@ -12,10 +12,12 @@ export namespace CalculatorAction {
 
   export const appendValue = createAction(
     `${PREFIX} Append Value`,
-    (value: string) => ({
+    (value?: string) => ({
       value,
     })
   );
 
-  export const clearValue = createAction(`${PREFIX} Cear Value`);
+  export const getRandomValue = createAction(`${PREFIX} Get Random Value`);
+
+  export const clearValue = createAction(`${PREFIX} Clear Value`);
 }
