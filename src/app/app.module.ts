@@ -1,3 +1,4 @@
+import { CalculatorEffect } from './sdk/calculator/effect';
 import { calculatorReducer } from './sdk/calculator/reducer';
 import { FormModule } from './form/form.module';
 import { AppRoutingModule } from './app.routing';
@@ -8,6 +9,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,9 +20,11 @@ import { StoreModule } from '@ngrx/store';
     LayoutModule,
     AppRoutingModule,
     FormModule,
+    HttpClientModule,
     StoreModule.forRoot({
       calculator: calculatorReducer,
     }),
+    EffectsModule.forRoot([CalculatorEffect]),
   ],
   providers: [],
   bootstrap: [AppComponent],
