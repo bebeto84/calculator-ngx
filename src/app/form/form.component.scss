@@ -1,9 +1,15 @@
 .calculator-form {
+  font-size: 1.5rem;
   form {
     padding: 10px;
-  }
-  .mat-form-field {
-    width: 100%;
-    text-align: right;
+
+    .mat-form-field {
+      width: 100%;
+      max-width: 650px;
+
+      input {
+        text-align: right;
+      }
+    }
   }
 }

@@ -1,5 +1,37 @@
-<form>
-  <mat-form-field>
-    <input autofocus="true" autocomplete="off" matInput />
+<form [formGroup]="form">
+  <mat-form-field class="example-full-width">
+    <input
+      matInput
+      formControlName="calculator"
+      autofocus="true"
+      autocomplete="off"
+      [errorStateMatcher]="matcher"
+      (keyup.enter)="onEnter()"
+    />
+    <mat-error
+      *ngIf="
+        calculatorControl.invalid &&
+          calculatorControl.hasError('allowedCharacters');
+        else parenthesesError
+      "
+    >
+      Please enter only valid characters
+    </mat-error>
   </mat-form-field>
+
+  <ng-template #parenthesesError>
+    <li
+      *ngIf="
+        calculatorControl.hasError('expressionWithParentheses');
+        else evaluateError
+      "
+    >
+      Expression must have parentheses
+    </li>
+  </ng-template>
+  <ng-template #evaluateError>
+    <li *ngIf="calculatorControl.hasError('evaluateCalculation')">
+      Expression is not correct
+    </li>
+  </ng-template>
 </form>
