@@ -1,12 +1,15 @@
+import { Operation } from './../model';
 import { createAction } from '@ngrx/store';
 
 export namespace CalculatorAction {
   const PREFIX = '[Calculator]';
 
-  export const calculateOperation = createAction(
-    `${PREFIX} Add Calculation`,
-    (expression?: string) => ({
-      expression,
+  export const calculateOperation = createAction(`${PREFIX} Add Calculation`);
+
+  export const calculateOperationSuccess = createAction(
+    `${PREFIX} Add Calculation Success`,
+    (operation: Operation) => ({
+      operation,
     })
   );
 

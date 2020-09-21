@@ -89,9 +89,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   onEnter(): void {
-    this.store.dispatch(
-      CalculatorAction.calculateOperation(this.calculatorControl.value)
-    );
+    this.store.dispatch(CalculatorAction.calculateOperation());
   }
 
   private get calculatorControl(): AbstractControl | undefined {
