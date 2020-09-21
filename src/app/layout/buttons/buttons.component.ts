@@ -25,16 +25,18 @@ export class ButtonsComponent implements OnInit {
 
   // TODO: Logic shouldn´t be triggered here directly
   onClickButton(value: string): void {
-    if (value === '=') {
-      this.store.dispatch(CalculatorAction.calculateOperation());
-      return;
+    switch (value) {
+      case '=':
+        this.store.dispatch(CalculatorAction.calculateOperation());
+        break;
+      case 'C':
+        this.store.dispatch(CalculatorAction.clearValue());
+        break;
+      case 'Rand':
+        this.store.dispatch(CalculatorAction.getRandomValue());
+        break;
+      default:
+        this.store.dispatch(CalculatorAction.appendValue(value));
     }
-
-    if (value === 'C') {
-      this.store.dispatch(CalculatorAction.clearValue());
-      return;
-    }
-
-    this.store.dispatch(CalculatorAction.appendValue(value));
   }
 }
