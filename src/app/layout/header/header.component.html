@@ -1,3 +1,20 @@
 <mat-toolbar>
   <span>Trigonometric Calculator</span>
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button
+      mat-menu-item
+      [disabled]="(lastOperationsCount$ | async) < 1"
+      (click)="historyClicked.emit()"
+    >
+      <mat-icon>dialpad</mat-icon>
+      <span>History</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

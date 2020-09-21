@@ -1,0 +1,5 @@
+<mat-list role="list">
+  <mat-list-item *ngFor="let operation of lastOperations$ | async"
+    >{{ operation.expression }} = {{ operation.value }}
+  </mat-list-item>
+</mat-list>

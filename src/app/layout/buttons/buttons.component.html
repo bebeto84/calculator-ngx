@@ -1,1 +1,57 @@
-
+<mat-drawer-container hasBackdrop>
+  <mat-drawer #drawer mode="over" position="end">
+    <div class="calculator-buttons-operators">
+      <button mat-raised-button (click)="onClickButton('sin')" color="primary">
+        sin
+      </button>
+      <button mat-raised-button (click)="onClickButton('cos')" color="primary">
+        cos
+      </button>
+      <button mat-raised-button (click)="onClickButton('tan')" color="primary">
+        tan
+      </button>
+      <button mat-raised-button (click)="onClickButton('(')" color="primary">
+        (
+      </button>
+      <button mat-raised-button (click)="onClickButton(')')" color="primary">
+        )
+      </button>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="calculator-buttons-keys">
+      <button mat-raised-button (click)="onClickButton('1')">1</button>
+      <button mat-raised-button (click)="onClickButton('2')">2</button>
+      <button mat-raised-button (click)="onClickButton('3')">3</button>
+      <button mat-raised-button (click)="onClickButton('4')">4</button>
+      <button mat-raised-button (click)="onClickButton('5')">5</button>
+      <button mat-raised-button (click)="onClickButton('6')">6</button>
+      <button mat-raised-button (click)="onClickButton('7')">7</button>
+      <button mat-raised-button (click)="onClickButton('8')">8</button>
+      <button mat-raised-button (click)="onClickButton('9')">9</button>
+      <button mat-raised-button (click)="onClickButton('0')">0</button>
+      <button mat-raised-button (click)="onClickButton('.')">.</button>
+      <button mat-raised-button (click)="onClickButton('=')">=</button>
+    </div>
+    <div class="calculator-buttons-operators">
+      <button mat-raised-button (click)="onClickButton('C')" color="primary">
+        C
+      </button>
+      <button mat-raised-button (click)="onClickButton('+')" color="primary">
+        +
+      </button>
+      <button mat-raised-button (click)="onClickButton('*')" color="primary">
+        *
+      </button>
+      <button mat-raised-button (click)="onClickButton('-')" color="primary">
+        -
+      </button>
+      <button mat-raised-button (click)="onClickButton('/')" color="primary">
+        /
+      </button>
+    </div>
+    <button mat-raised-button (click)="drawer.toggle()">
+      {{ drawer.opened ? ">" : "<" }}
+    </button>
+  </mat-drawer-content>
+</mat-drawer-container>

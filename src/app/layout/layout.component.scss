@@ -1,0 +1,12 @@
+.calculator-layout {
+  display: flex;
+  flex-direction: column;
+
+  &-drawer {
+    flex: 1 1 auto;
+  }
+
+  &-content {
+    height: 100%;
+  }
+}

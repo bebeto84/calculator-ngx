@@ -1,0 +1,33 @@
+.calculator-buttons {
+  .mat-drawer-content,
+  .mat-drawer-inner-container {
+    display: flex;
+    flex-direction: row;
+    background-color: royalblue;
+    max-height: 500px;
+  }
+
+  .mat-drawer-inner-container {
+    min-width: 200px;
+  }
+
+  &-keys {
+    flex: 4;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 100px;
+    grid-gap: 20px;
+    padding: 20px;
+  }
+
+  &-operators {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 80px;
+
+    grid-gap: 12px;
+    padding: 12px;
+    margin: auto;
+  }
+}

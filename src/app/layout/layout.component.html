@@ -1,6 +1,15 @@
-<calculator-header></calculator-header>
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
-<calculator-buttons></calculator-buttons>
-<calculator-history></calculator-history>
+<calculator-header (historyClicked)="drawer.toggle()"></calculator-header>
+<mat-drawer-container autosize>
+  <mat-drawer #drawer mode="side">
+    Previous calculations
+    <calculator-history></calculator-history>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="calculator-layout-container">
+      <div class="calculator-layout-content">
+        <router-outlet></router-outlet>
+      </div>
+      <calculator-buttons></calculator-buttons>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
