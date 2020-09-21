@@ -9,30 +9,8 @@
       (keyup.enter)="onEnter()"
       #calculatorInput="matInput"
     />
-    <mat-error
-      *ngIf="
-        calculatorControl.invalid &&
-          calculatorControl.hasError('allowedCharacters');
-        else parenthesesError
-      "
-    >
-      Please enter only valid characters
+    <mat-error *ngIf="form.invalid && (errorMessage$ | async) as errorMessage">
+      {{ errorMessage }}
     </mat-error>
   </mat-form-field>
-
-  <ng-template #parenthesesError>
-    <li
-      *ngIf="
-        calculatorControl.hasError('expressionWithParentheses');
-        else evaluateError
-      "
-    >
-      Expression must have parentheses
-    </li>
-  </ng-template>
-  <ng-template #evaluateError>
-    <li *ngIf="calculatorControl.hasError('evaluateCalculation')">
-      Expression is not correct
-    </li>
-  </ng-template>
 </form>

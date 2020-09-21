@@ -22,7 +22,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { select, Store } from '@ngrx/store';
 import { CalculatorAction } from '../sdk/calculator/action';
 import { CalculatorSelector } from '../sdk/calculator/selector';
-import { distinctUntilChanged, tap } from 'rxjs/operators';
+import { distinctUntilChanged, tap, map, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { MatFormFieldControl } from '@angular/material/form-field';
 
@@ -34,8 +34,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   ): boolean {
     const isSubmitted = form && form.submitted;
     return !!(
-      control &&
-      control.invalid &&
+      control?.invalid &&
       (control.dirty || control.touched || isSubmitted)
     );
   }
@@ -55,7 +54,21 @@ export class FormComponent implements OnInit, OnDestroy {
 
   readonly form = this.initForm();
   readonly matcher = new MyErrorStateMatcher();
-  data$$: Subscription | undefined;
+  readonly errorMessage$ = this.calculatorControl.statusChanges.pipe(
+    filter((status) => status === 'INVALID'),
+    map(() => {
+      const { errors } = this.calculatorControl;
+      if (errors['allowedCharacters']) {
+        return 'Please enter only valid characters';
+      }
+      if (errors['expressionWithParenthesis']) {
+        return ' Expression must have parentheses';
+      }
+      return 'Expression is not correct';
+    })
+  );
+
+  private data$$: Subscription | undefined;
 
   constructor(private fb: FormBuilder, private store: Store<MainState>) {}
 
@@ -81,7 +94,7 @@ export class FormComponent implements OnInit, OnDestroy {
     );
   }
 
-  get calculatorControl(): AbstractControl | undefined {
+  private get calculatorControl(): AbstractControl | undefined {
     return this.form.controls['calculator'];
   }
 
