@@ -18,7 +18,7 @@ export namespace CustomValidators {
 
   export const expressionWithParentheses = ({ value }: FormControl) => {
     const expressions = ['sin', 'cos', 'tan'];
-    const valueAsString = value as string;
+    const valueAsString = (value as string).toString();
 
     return expressions.every((expression) => {
       const index = valueAsString.indexOf(expression);
